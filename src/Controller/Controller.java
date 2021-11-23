@@ -1,33 +1,35 @@
 package Controller;
 
 import Model.CategoryOfFood;
-import Model.Model;
-import Model.Food;
+import Model.*;
+import View.*;
 
 public class Controller {
 
     private Model model;
+    private View view;
 
-    public Controller(Model model){
+    public Controller(Model model, View view){
         this.model = model;
+        this.view = view;
     }
 
     public void addCategoryOfFood(String name){
         model.addCategoryOfFood(new CategoryOfFood(name));
+        view.printLastCategoryOfFood();
     }
 
     public void getAllCategoryOfFood(){
-        System.out.println("Список всех категорий блюд: ");
-        model.getAllCategoryOfFood();
+        view.printAllCategoryOfFood();
     }
 
     public void addFood(String name, int id, int price){
         model.addFood(new Food(name, model.getCategoryOfFood(id), price));
+        view.printLastFood();
     }
 
     public void getAllFood(){
-        System.out.println("Список всех блюд: ");
-        model.getAllFood();
+        view.printAllFood();
     }
 
 }

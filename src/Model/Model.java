@@ -1,12 +1,13 @@
 package Model;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Model {
 
-   private ArrayList<Food> arrFood = new ArrayList<Food>();
+   private List<Food> arrFood = new LinkedList<Food>();
 
-   private ArrayList<CategoryOfFood> arrCategoryOfFood = new ArrayList<CategoryOfFood>();
+   private List<CategoryOfFood> arrCategoryOfFood = new LinkedList<CategoryOfFood>();
 
    public void addFood(Food food){
       arrFood.add(food);
@@ -16,16 +17,12 @@ public class Model {
       arrCategoryOfFood.add(categoryOfFood);
    }
 
-   public void getAllFood(){
-      for(Food food : arrFood){
-         System.out.println(food);
-      }
+   public List<Food> getAllFood(){
+      return arrFood;
    }
 
-   public void getAllCategoryOfFood(){
-      for(CategoryOfFood categoryOfFood : arrCategoryOfFood){
-         System.out.println(categoryOfFood);
-      }
+   public List<CategoryOfFood> getAllCategoryOfFood(){
+      return arrCategoryOfFood;
    }
 
    public Food getFood(int num){
@@ -34,6 +31,14 @@ public class Model {
 
    public CategoryOfFood getCategoryOfFood(int num){
       return arrCategoryOfFood.get(num);
+   }
+
+   public int getLengthFood(){
+      return arrFood.size();
+   }
+
+   public int getLengthCategoryOfFood(){
+      return arrCategoryOfFood.size();
    }
 
 

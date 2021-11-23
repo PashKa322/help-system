@@ -2,23 +2,23 @@ import Controller.Controller;
 import Model.Model;
 import Model.Food;
 import Model.CategoryOfFood;
+import View.View;
 
 public class Main {
     public static void main(String[] args) {
 
-        Model a = new Model();
+        Model model = new Model();
+        model.addCategoryOfFood(new CategoryOfFood("asd"));
+        model.addFood(new Food("Asd", model.getCategoryOfFood(0), 149));
+        Controller controller = new Controller(model, new View(model));
 
-        Controller controller = new Controller(a);
-
-        controller.addCategoryOfFood("myaso");
-
-        controller.addFood("asd", 0, 789);
-        controller.addFood("ads", 0, 589);
-        controller.addFood("vvv", 0, 1089);
+        controller.addFood("asd", 0, 78900);
+        controller.addFood("ddd", 0, 78900);
+        controller.addFood("qwe", 0, 78900);
+        controller.addFood("zxc", 0, 78900);
 
         controller.getAllFood();
 
-        controller.getAllCategoryOfFood();
 
 
     }
