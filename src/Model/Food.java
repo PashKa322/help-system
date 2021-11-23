@@ -37,4 +37,9 @@ public class Food {
     public int getPrice() {
         return price;
     }
+
+    @Override
+    public String toString() {
+        return "Name: " + name + " price: " + price + " category: " + categoryOfFood;
+    }
 }

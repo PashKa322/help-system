@@ -15,4 +15,11 @@ public class CategoryOfFood {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "Name: " + name;
+    }
+
+
 }
