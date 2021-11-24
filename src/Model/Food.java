@@ -8,6 +8,8 @@ public class Food {
 
     private int price;
 
+    private int idFood;
+
     public Food(String name, CategoryOfFood categoryOfFood, int price){
         this.name = name;
         this.categoryOfFood = categoryOfFood;
@@ -36,6 +38,14 @@ public class Food {
 
     public int getPrice() {
         return price;
+    }
+
+    public void setIdFood(int idFood) {
+        this.idFood = idFood;
+    }
+
+    public int getIdFood() {
+        return idFood;
     }
 
     @Override

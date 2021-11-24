@@ -15,8 +15,8 @@ public class Controller {
     }
 
     public void addCategoryOfFood(String name){
-        model.addCategoryOfFood(new CategoryOfFood(name));
-        view.printLastCategoryOfFood();
+        int num = model.addCategoryOfFood(new CategoryOfFood(name));
+        view.printLastCategoryOfFood(num);
     }
 
     public void getAllCategoryOfFood(){
@@ -24,8 +24,8 @@ public class Controller {
     }
 
     public void addFood(String name, int id, int price){
-        model.addFood(new Food(name, model.getCategoryOfFood(id), price));
-        view.printLastFood();
+        int num =  model.addFood(new Food(name, model.getCategoryOfFoodById(id), price));
+        view.printLastFood(num);
     }
 
     public void getAllFood(){

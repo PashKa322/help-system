@@ -25,14 +25,14 @@ public class View {
         }
     }
 
-    public void printLastFood(){
+    public void printLastFood(int num){
         System.out.println("Добавленное блюдо: ");
-        System.out.println(model.getAllFood().get(model.getLengthFood() - 1));
+        System.out.println(model.getFoodById(num));
     }
 
-    public void printLastCategoryOfFood(){
+    public void printLastCategoryOfFood(int num){
         System.out.println("Добавленная категория: ");
-        System.out.println(model.getAllCategoryOfFood().get(model.getLengthCategoryOfFood() - 1));
+        System.out.println(model.getCategoryOfFoodById(num));
     }
 
 }

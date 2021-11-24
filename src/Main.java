@@ -8,17 +8,15 @@ public class Main {
     public static void main(String[] args) {
 
         Model model = new Model();
-        model.addCategoryOfFood(new CategoryOfFood("asd"));
-        model.addFood(new Food("Asd", model.getCategoryOfFood(0), 149));
-        Controller controller = new Controller(model, new View(model));
+        View view = new View(model);
 
-        controller.addFood("asd", 0, 78900);
-        controller.addFood("ddd", 0, 78900);
-        controller.addFood("qwe", 0, 78900);
-        controller.addFood("zxc", 0, 78900);
+        Controller controller = new Controller(model, view);
 
-        controller.getAllFood();
+        controller.addCategoryOfFood("Мясное");
 
+        controller.addFood("asd", 0, 789);
+        controller.addFood("ass", 0, 999);
+        controller.addFood("ddd", 0, 1024);
 
 
     }

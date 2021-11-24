@@ -9,12 +9,16 @@ public class Model {
 
    private List<CategoryOfFood> arrCategoryOfFood = new LinkedList<CategoryOfFood>();
 
-   public void addFood(Food food){
+   public int addFood(Food food){
       arrFood.add(food);
+      food.setIdFood(arrFood.size() - 1);
+      return food.getIdFood();
    }
 
-   public void addCategoryOfFood(CategoryOfFood  categoryOfFood){
+   public int addCategoryOfFood(CategoryOfFood  categoryOfFood){
       arrCategoryOfFood.add(categoryOfFood);
+      categoryOfFood.setIdCategoryFood(arrCategoryOfFood.size() - 1);
+      return categoryOfFood.getIdCategoryFood();
    }
 
    public List<Food> getAllFood(){
@@ -25,11 +29,11 @@ public class Model {
       return arrCategoryOfFood;
    }
 
-   public Food getFood(int num){
+   public Food getFoodById(int num){
       return arrFood.get(num);
    }
 
-   public CategoryOfFood getCategoryOfFood(int num){
+   public CategoryOfFood getCategoryOfFoodById(int num){
       return arrCategoryOfFood.get(num);
    }
 
@@ -40,6 +44,7 @@ public class Model {
    public int getLengthCategoryOfFood(){
       return arrCategoryOfFood.size();
    }
+
 
 
 }
