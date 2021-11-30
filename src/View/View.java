@@ -35,4 +35,25 @@ public class View {
         System.out.println(model.getCategoryOfFoodById(num));
     }
 
+    public void printCategoryById(int num){
+        System.out.printf("Категория с номером %d: \n", num);
+        System.out.println(model.getCategoryOfFoodById(num));
+    }
+
+    public void printFoodById(int num){
+        System.out.printf("Еда с номером %d: \n", num);
+        System.out.println(model.getFoodById(num));
+    }
+
+    public void printFoodByCategoryId(int num){
+        System.out.println("Блюда по номеру категории: ");
+        for (Food food: model.getAllFood()){
+            if(food.getCategoryOfFood() == model.getCategoryOfFoodById(num)){
+                System.out.println(food);
+            }
+        }
+    }
+
+
+
 }
