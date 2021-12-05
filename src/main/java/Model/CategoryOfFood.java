@@ -10,6 +10,9 @@ public class CategoryOfFood {
         this.name = name;
     }
 
+    public CategoryOfFood(){
+    }
+
     public void setName(String name) {
         this.name = name;
     }

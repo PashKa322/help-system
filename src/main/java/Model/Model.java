@@ -1,13 +1,19 @@
 package Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+
 import java.util.LinkedList;
 import java.util.List;
 
-public class Model {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Model{
 
    private List<Food> arrFood = new LinkedList<Food>();
 
    private List<CategoryOfFood> arrCategoryOfFood = new LinkedList<CategoryOfFood>();
+
+
 
    public int addFood(Food food){
       arrFood.add(food);
