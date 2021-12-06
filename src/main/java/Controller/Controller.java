@@ -12,7 +12,6 @@ import exc.WrongNameFood;
 import java.io.*;
 
 public class Controller {
-
     private Model model;
     private View view;
     private ObjectMapper objectMapper;
