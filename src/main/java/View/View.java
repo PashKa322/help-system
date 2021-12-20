@@ -2,15 +2,24 @@ package View;
 
 import Model.*;
 
-
+/**
+ * Класс view. Его задача выводить данные
+ */
 public class View {
 
     private Model model;
 
+    /**
+     * Конструктор - служит для создания экземпляра класса
+     * @param model - модель
+     */
     public View(Model model){
         this.model = model;
     }
 
+    /**
+     * Функция, выводящая на экран все блюда
+     */
     public void printAllFood(){
         System.out.println("Список всех блюд: ");
         for(Food food: model.getAllFood()){
@@ -18,6 +27,9 @@ public class View {
         }
     }
 
+    /**
+     * Функция,выводящая на экран все категории
+     */
     public void printAllCategoryOfFood(){
         System.out.println("Список всех категорий блюд: ");
         for(CategoryOfFood categoryOfFood: model.getAllCategoryOfFood()){
@@ -25,26 +37,46 @@ public class View {
         }
     }
 
+    /**
+     * Функция, выводящая на экран последнее добавленное блюдо по номеру
+     * @param num - номер
+     */
     public void printLastFood(int num){
         System.out.println("Добавленное блюдо: ");
         System.out.println(model.getFoodById(num));
     }
 
+    /**
+     * Функция, выводящая на экран последнюю добавленную категорию блюд по номеру
+     * @param num - номер
+     */
     public void printLastCategoryOfFood(int num){
         System.out.println("Добавленная категория: ");
         System.out.println(model.getCategoryOfFoodById(num));
     }
 
+    /**
+     * Функция, выводящая на экран категорию блюд по номеру
+     * @param num - номер
+     */
     public void printCategoryById(int num){
         System.out.printf("Категория с номером %d: \n", num);
         System.out.println(model.getCategoryOfFoodById(num));
     }
 
+    /**
+     * Функция, выводящая на экран блюдо по номеру
+     * @param num - номер
+     */
     public void printFoodById(int num){
-        System.out.printf("Еда с номером %d: \n", num);
+        System.out.printf("Блюдо с номером %d: \n", num);
         System.out.println(model.getFoodById(num));
     }
 
+    /**
+     * Функция, выводящая на экран список блюд по номеру категории
+     * @param num - номер
+     */
     public void printFoodByCategoryId(int num){
         System.out.println("Блюда по номеру категории: ");
         for (Food food: model.getAllFood()){

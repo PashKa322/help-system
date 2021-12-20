@@ -1,6 +1,9 @@
 import Model.*;
 import View.View;
 
+/**
+ * Перечисление команд
+ */
 public enum Command {
     ADD_CATEGORY_OF_FOOD("addCategoryOfFood"){
         @Override
@@ -85,14 +88,27 @@ public enum Command {
 
     private String commandName;
 
+    /**
+     * Конструктор - создание новой команды
+     * @param commandName - название команды
+     */
     Command(String commandName){
         this.commandName = commandName;
     }
 
+    /**
+     * Функция, возвращающая название команды
+     * @return возвращает название команды
+     */
     public String getCommandName() {
         return commandName;
     }
 
+    /**
+     * Функция получения команды
+     * @param name - название команды
+     * @return возвращает название команды
+     */
     public static Command getCommand(String name) {
         for(Command command: Command.values()){
             if(command.getCommandName().equals(name)){
@@ -102,7 +118,19 @@ public enum Command {
         throw new IllegalArgumentException("Command not found");
     }
 
+    /**
+     * Абстрактная функция выполенния команды
+     * @param args - массив аргументов
+     * @param model - модель
+     * @return
+     */
     abstract int processCommand(String[] args, Model model);
+
+    /**
+     * Абстрактная функция вывода информации на экран
+     * @param view - экземпляр класса view
+     * @param args - массив аргументов
+     */
     abstract void updateView(View view, String[] args);
 
 }
