@@ -1,12 +1,15 @@
 package View;
 
 import Model.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Класс view. Его задача выводить данные
  */
-public class View {
-
+@Service
+public class View implements ViewInterface{
+    @Autowired
     private Model model;
 
     /**
@@ -85,7 +88,4 @@ public class View {
             }
         }
     }
-
-
-
 }

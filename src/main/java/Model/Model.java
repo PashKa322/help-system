@@ -1,6 +1,8 @@
 package Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 
 import java.util.LinkedList;
@@ -10,9 +12,9 @@ import java.util.List;
 /**
  * Клаас модели с атрибутами arrFood, arrCategoryOfFood
  */
+@Service
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Model{
-
+public class Model implements ModelInterface{
    private List<Food> arrFood = new LinkedList<Food>();
 
    private List<CategoryOfFood> arrCategoryOfFood = new LinkedList<CategoryOfFood>();
@@ -89,7 +91,4 @@ public class Model{
    public int getLengthCategoryOfFood(){
       return arrCategoryOfFood.size();
    }
-
-
-
 }

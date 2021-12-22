@@ -1,6 +1,5 @@
 package Controller;
 
-import Model.CategoryOfFood;
 import Model.*;
 import View.*;
 
@@ -8,15 +7,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import exc.NotFoundObject;
 import exc.WrongNameCategory;
 import exc.WrongNameFood;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 
 /**
  * Класс контроллер с атрибутами model, view, objectMapper. Управляет действиями над моделью
  */
-public class Controller {
+@Service
+public class Controller implements ControllerInterface{
+    @Autowired
     private Model model;
+    @Autowired
     private View view;
+    @Autowired
     private ObjectMapper objectMapper;
 
     /**
@@ -73,7 +78,7 @@ public class Controller {
      * @throws NotFoundObject - ошибка поиска категории
      */
     public void getCategoryById(int id) throws NotFoundObject {
-        if (checkCategory(id) == true) {
+        if (checkCategory(id)) {
             throw new NotFoundObject();
         }
         view.printCategoryById(id);
@@ -88,7 +93,7 @@ public class Controller {
      * @throws NotFoundObject - ошибка поиска категории
      */
     public void addFood(String name, int id, int price) throws WrongNameFood, NotFoundObject {
-        if (checkCategory(id) == true) {
+        if (checkCategory(id)) {
             throw new NotFoundObject();
         }
         for (Food food : model.getAllFood()) {
@@ -125,7 +130,7 @@ public class Controller {
      * @throws NotFoundObject - ошибка поиска блюда
      */
     public void getFoodByCategoryId(int id) throws NotFoundObject {
-        if (checkCategory(id) == true) {
+        if (checkCategory(id)) {
             throw new NotFoundObject();
         }
         view.printFoodByCategoryId(id);
