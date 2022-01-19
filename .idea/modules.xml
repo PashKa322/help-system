@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/helpSystem.iml" filepath="$PROJECT_DIR$/helpSystem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WebHelpSystem.iml" filepath="$PROJECT_DIR$/WebHelpSystem.iml" />
     </modules>
   </component>
 </project>
