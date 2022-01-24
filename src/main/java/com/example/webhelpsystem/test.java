@@ -8,7 +8,7 @@ import java.net.URL;
 
 public class test {
     public static void main(String[] args) throws IOException {
-        URL oracle = new URL("http://localhost:8080/getAllCategoryOfFood");
+        URL oracle = new URL("http://localhost:8080/getAllFood");
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(oracle.openStream()));
 

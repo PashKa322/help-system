@@ -12,11 +12,15 @@ public interface ModelInterface {
 
     public List<Food> getAllFood();
 
+    public void setAllFood(List<Food> newArrFood);
+
     public List<CategoryOfFood> getAllCategoryOfFood();
 
     public Food getFoodById(int num);
 
     public CategoryOfFood getCategoryOfFoodById(int num);
+
+    public List<Food> getFoodByCategoryId(int id);
 
     public int getLengthFood();
 

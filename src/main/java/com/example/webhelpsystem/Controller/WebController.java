@@ -60,17 +60,17 @@ public class WebController implements ControllerInterface{
     @GetMapping("getCategoryById")
     @Override
     public CategoryOfFood getCategoryById(int id) throws NotFoundObject {
-        if (checkCategory(id)) {
-            throw new NotFoundObject();
-        }
+//        if (checkCategory(id)) {
+//            throw new NotFoundObject();
+//        }
         return model.getCategoryOfFoodById(id);
     }
     @PostMapping("addFood")
     @Override
     public void addFood(String name, int id, int price) throws WrongNameFood, NotFoundObject {
-        if (checkCategory(id)) {
-            throw new NotFoundObject();
-        }
+//        if (checkCategory(id)) {
+//            throw new NotFoundObject();
+//        }
         for (Food food : model.getAllFood()) {
             if (food.getName().equals(name)) {
                 throw new WrongNameFood();
@@ -93,19 +93,15 @@ public class WebController implements ControllerInterface{
     public List<Food> getAllFood() {
         return model.getAllFood();
     }
+
     @GetMapping("getFoodByCategoryId")
     @Override
     public List<Food> getFoodByCategoryId(int id) throws NotFoundObject {
-        if (checkCategory(id)) {
-            throw new NotFoundObject();
-        }
-        List<Food> listFood = new LinkedList<Food>();
-        for (Food food: model.getAllFood()){
-            if(food.getCategoryOfFood() == model.getCategoryOfFoodById(id)){
-                listFood.add(food);
-            }
-        }
-        return listFood;
+//        if (checkCategory(id)) {
+//            throw new NotFoundObject();
+//        }
+
+        return model.getFoodByCategoryId(id);
     }
 
     @Override
