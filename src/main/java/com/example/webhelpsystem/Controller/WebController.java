@@ -42,13 +42,14 @@ public class WebController implements ControllerInterface{
 
     @PostMapping("addCategoryOfFood")
     @Override
-    public void addCategoryOfFood(String name) throws WrongNameCategory {
+    public CategoryOfFood addCategoryOfFood(String name) throws WrongNameCategory {
         for (CategoryOfFood categoryOfFood : model.getAllCategoryOfFood()) {
             if (categoryOfFood.getName().equals(name)) {
                 throw new WrongNameCategory();
             }
         }
-        model.addCategoryOfFood(new CategoryOfFood(name));
+        int id = model.addCategoryOfFood(new CategoryOfFood(name));
+        return model.getCategoryOfFoodById(id);
     }
 
     @GetMapping("getAllCategoryOfFood")
@@ -67,7 +68,7 @@ public class WebController implements ControllerInterface{
     }
     @PostMapping("addFood")
     @Override
-    public void addFood(String name, int id, int price) throws WrongNameFood, NotFoundObject {
+    public Food addFood(String name, int id, int price) throws WrongNameFood, NotFoundObject {
 //        if (checkCategory(id)) {
 //            throw new NotFoundObject();
 //        }
@@ -76,7 +77,8 @@ public class WebController implements ControllerInterface{
                 throw new WrongNameFood();
             }
         }
-        model.addFood(new Food(name, model.getCategoryOfFoodById(id), price));
+        id = model.addFood(new Food(name, model.getCategoryOfFoodById(id), price));
+        return model.getFoodById(id);
     }
 
     @GetMapping("getFoodById")

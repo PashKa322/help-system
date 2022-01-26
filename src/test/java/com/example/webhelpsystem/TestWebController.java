@@ -4,16 +4,21 @@ import com.example.webhelpsystem.Controller.WebController;
 import com.example.webhelpsystem.Model.CategoryOfFood;
 import com.example.webhelpsystem.Model.Food;
 import com.example.webhelpsystem.Model.ModelInterface;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.LinkedList;
@@ -26,17 +31,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(WebController.class)
+@AutoConfigureMockMvc
 public class TestWebController {
     @Autowired
     private MockMvc mockMvc;
-
     @MockBean
     ModelInterface model;
+    @Autowired
+    WebController webController;
 
+    private List<Food> foods;
+    private List<CategoryOfFood> categoryOfFoods;
+    private ObjectMapper mapper;
 
-    @Test
-    public void testGetAllFoods() throws Exception {
-        List<Food> foods = new LinkedList<Food>();
+    @Before
+    public void setup(){
+        foods = new LinkedList<Food>();
         CategoryOfFood category = new CategoryOfFood("Myasnoe");
         Food food = new Food("lala", category, 789);
         food.setIdFood(0);
@@ -45,30 +55,43 @@ public class TestWebController {
         foods.add(food);
         foods.add(food1);
 
-        when(model.getAllFood()).thenReturn(foods);
-
-        mockMvc.perform(MockMvcRequestBuilders
-                        .get("/getAllFood")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk()).andDo(print());
-    }
-
-    @Test
-    public void testGetAllCategoryOfFood() throws Exception {
-        List<CategoryOfFood> category = new LinkedList<CategoryOfFood>();
+        categoryOfFoods = new LinkedList<CategoryOfFood>();
         CategoryOfFood category1 = new CategoryOfFood("Myasnoe");
         category1.setIdCategoryFood(0);
         CategoryOfFood category2 = new CategoryOfFood("Riba");
         category2.setIdCategoryFood(1);
-        category.add(category1);
-        category.add(category2);
+        categoryOfFoods.add(category1);
+        categoryOfFoods.add(category2);
 
-        when(model.getAllCategoryOfFood()).thenReturn(category);
+        mapper = new ObjectMapper();
+    }
 
-        mockMvc.perform(MockMvcRequestBuilders
+    @Test
+    public void testGetAllFoods() throws Exception {
+        when(webController.getAllFood()).thenReturn(foods);
+
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders
+                        .get("/getAllFood")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk()).andDo(print()).andReturn();
+
+        String content = result.getResponse().getContentAsString();
+        String json = mapper.writeValueAsString(foods);
+        JSONAssert.assertEquals(content, json, JSONCompareMode.LENIENT);
+    }
+
+    @Test
+    public void testGetAllCategoryOfFood() throws Exception {
+        when(webController.getAllCategoryOfFood()).thenReturn(categoryOfFoods);
+
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders
                         .get("/getAllCategoryOfFood")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk()).andDo(print());
+                .andExpect(status().isOk()).andDo(print()).andReturn();
+
+        String content = result.getResponse().getContentAsString();
+        String json = mapper.writeValueAsString(categoryOfFoods);
+        JSONAssert.assertEquals(content, json, JSONCompareMode.LENIENT);
     }
 
     @Test
@@ -76,34 +99,32 @@ public class TestWebController {
         String name = "Myasnoe";
         CategoryOfFood category = new CategoryOfFood(name);
 
-        Mockito.when(model.addCategoryOfFood(category)).thenReturn(category.getIdCategoryFood());
+        when(webController.addCategoryOfFood(name)).thenReturn(category);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/addCategoryOfFood")
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/addCategoryOfFood")
                 .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .param("name", name);
+                .param("name", name))
+                .andExpect(status().isOk()).andDo(print()).andReturn();
 
-        mockMvc.perform(mockRequest)
-                .andExpect(status().isOk()).andDo(print());
+        String content = result.getResponse().getContentAsString();
+        String json = mapper.writeValueAsString(category);
+
+        JSONAssert.assertEquals(content, json, JSONCompareMode.LENIENT);
     }
 
     @Test
     public void testGetCategoryOfFoodById() throws Exception {
-        List<CategoryOfFood> category = new LinkedList<CategoryOfFood>();
-        CategoryOfFood category1 = new CategoryOfFood("Myasnoe");
-        category1.setIdCategoryFood(0);
-        CategoryOfFood category2 = new CategoryOfFood("Riba");
-        category2.setIdCategoryFood(1);
-        category.add(category1);
-        category.add(category2);
+        when(webController.getCategoryById(0)).thenReturn(categoryOfFoods.get(0));
 
-        when(model.getCategoryOfFoodById(0)).thenReturn(category.get(0));
-
-        mockMvc.perform(MockMvcRequestBuilders
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders
                         .get("/getCategoryById")
                         .param("id", String.valueOf(0))
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk()).andDo(print());
+                .andExpect(status().isOk()).andDo(print()).andReturn();
+
+        String content = result.getResponse().getContentAsString();
+        String json = mapper.writeValueAsString(categoryOfFoods.get(0));
+        JSONAssert.assertEquals(content, json, JSONCompareMode.LENIENT);
     }
 
     @Test
@@ -116,59 +137,43 @@ public class TestWebController {
         Food food = new Food(name, category, price);
         food.setIdFood(0);
 
-        Mockito.when(model.addFood(food)).thenReturn(food.getIdFood());
+        Mockito.when(webController.addFood(name, id, price)).thenReturn(food);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/addFood")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .param("name", name).param("id", String.valueOf(0)).param("price", String.valueOf(price));
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/addFood")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("name", name).param("id", String.valueOf(id)).param("price", String.valueOf(price)))
+                .andExpect(status().isOk()).andDo(print()).andReturn();
 
-        mockMvc.perform(mockRequest)
-                .andExpect(status().isOk()).andDo(print());
+        String content = result.getResponse().getContentAsString();
+        String json = mapper.writeValueAsString(food);
+        JSONAssert.assertEquals(content, json, JSONCompareMode.LENIENT);
     }
 
     @Test
     public void testGetFoodByID() throws Exception {
-        List<Food> foods = new LinkedList<Food>();
-        CategoryOfFood category = new CategoryOfFood("Myasnoe");
-        Food food = new Food("lala", category, 789);
-        food.setIdFood(0);
-        Food food1 = new Food("adada", category, 547);
-        food1.setIdFood(1);
-        foods.add(food);
-        foods.add(food1);
+        when(webController.getFoodById(0)).thenReturn(foods.get(0));
 
-        when(model.getFoodById(0)).thenReturn(food);
-
-        mockMvc.perform(MockMvcRequestBuilders
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders
                         .get("/getFoodById").param("id", String.valueOf(0))
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk()).andDo(print());
+                .andExpect(status().isOk()).andDo(print()).andReturn();
+
+        String content = result.getResponse().getContentAsString();
+        String json = mapper.writeValueAsString(foods.get(0));
+        JSONAssert.assertEquals(content, json, JSONCompareMode.LENIENT);
     }
 
     @Test
     public void testGetFoodByCategoryId() throws Exception {
-        List<Food> foods = new LinkedList<Food>();
-        CategoryOfFood category = new CategoryOfFood("Myasnoe");
-        Food food = new Food("lala", category, 789);
-        food.setIdFood(0);
-        Food food1 = new Food("adada", category, 547);
-        food1.setIdFood(1);
-        foods.add(food);
-        foods.add(food1);
+        when(webController.getFoodByCategoryId(0)).thenReturn(foods);
 
-        when(model.getFoodByCategoryId(0)).thenReturn(foods);
-
-        mockMvc.perform(MockMvcRequestBuilders
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders
                         .get("/getFoodByCategoryId").param("id", String.valueOf(0))
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk()).andDo(print());
+                .andExpect(status().isOk()).andDo(print()).andReturn();
+
+        String content = result.getResponse().getContentAsString();
+        String json = mapper.writeValueAsString(foods);
+        JSONAssert.assertEquals(content, json, JSONCompareMode.LENIENT);
     }
-
-
-
-
-
-
-
 }

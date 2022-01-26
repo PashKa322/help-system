@@ -12,13 +12,13 @@ import java.util.List;
 
 @Service
 public interface ControllerInterface {
-    public void addCategoryOfFood(String name) throws WrongNameCategory;
+    public CategoryOfFood addCategoryOfFood(String name) throws WrongNameCategory;
 
     public List getAllCategoryOfFood();
 
     public CategoryOfFood getCategoryById(int id) throws NotFoundObject;
 
-    public void addFood(String name, int id, int price) throws WrongNameFood, NotFoundObject;
+    public Food addFood(String name, int id, int price) throws WrongNameFood, NotFoundObject;
 
     public Food getFoodById(int id) throws NotFoundObject;
 

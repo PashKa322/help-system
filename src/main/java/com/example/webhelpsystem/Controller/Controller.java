@@ -62,7 +62,7 @@ public class Controller implements ControllerInterface{
      * @param name - имя
      * @throws WrongNameCategory - ошибка, если категория с таким иминем существует
      */
-    public void addCategoryOfFood(String name) throws WrongNameCategory {
+    public CategoryOfFood addCategoryOfFood(String name) throws WrongNameCategory {
         for (CategoryOfFood categoryOfFood : model.getAllCategoryOfFood()) {
             if (categoryOfFood.getName().equals(name)) {
                 throw new WrongNameCategory();
@@ -70,6 +70,7 @@ public class Controller implements ControllerInterface{
         }
         int num = model.addCategoryOfFood(new CategoryOfFood(name));
         view.printLastCategoryOfFood(num);
+        return null;
     }
 
     /**
@@ -101,7 +102,7 @@ public class Controller implements ControllerInterface{
      * @throws WrongNameFood - ошибка повторяющегося названия блюда
      * @throws NotFoundObject - ошибка поиска категории
      */
-    public void addFood(String name, int id, int price) throws WrongNameFood, NotFoundObject {
+    public Food addFood(String name, int id, int price) throws WrongNameFood, NotFoundObject {
         if (checkCategory(id)) {
             throw new NotFoundObject();
         }
@@ -112,6 +113,7 @@ public class Controller implements ControllerInterface{
         }
         int num = model.addFood(new Food(name, model.getCategoryOfFoodById(id), price));
         view.printLastFood(num);
+        return null;
     }
 
     /**
