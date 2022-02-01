@@ -1,13 +1,18 @@
 package com.example.webhelpsystem.Model;
 
+import lombok.Data;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  * Класс CategoryOfFood с атрибутами name, idCategoryOfFood
  */
+@Entity
 public class CategoryOfFood {
-
-    private String name;
-
+    @Id
     private int idCategoryFood;
+    private String name;
 
     /**
      * Конструктор - создание нового объекта с определенными значениями

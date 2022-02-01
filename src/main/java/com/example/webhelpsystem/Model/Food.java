@@ -1,17 +1,27 @@
 package com.example.webhelpsystem.Model;
 
+import com.vladmihalcea.hibernate.type.json.JsonStringType;
+import lombok.Data;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+
 /**
  * Класс Food с атрибутами: name, categoryOfFood, price, idFood
  */
+@Entity
+@TypeDef(name = "json", typeClass = JsonStringType.class)
 public class Food {
-
-    private String name;
-
-    private CategoryOfFood categoryOfFood;
-
-    private int price;
-
+    @Id
     private int idFood;
+    private String name;
+    private int price;
+    @Type(type = "json")
+    private CategoryOfFood categoryOfFood;
 
     /**
      * Конструктор - создание нового объекта с определенными значениями, используется для создания новых блюд

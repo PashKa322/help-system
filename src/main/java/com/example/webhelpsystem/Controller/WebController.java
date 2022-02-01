@@ -7,6 +7,7 @@ import com.example.webhelpsystem.Model.ModelInterface;
 import com.example.webhelpsystem.exc.NotFoundObject;
 import com.example.webhelpsystem.exc.WrongNameCategory;
 import com.example.webhelpsystem.exc.WrongNameFood;
+import com.example.webhelpsystem.repository.CategoryOfFoodRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -24,11 +24,10 @@ public class WebController implements ControllerInterface{
     @Autowired
     private ModelInterface model;
     @Autowired
-    private ObjectMapper objectMapper;
+    private CategoryOfFoodRepository repository;
 
     public WebController(ModelInterface model, ObjectMapper objectMapper){
         this.model = model;
-        this.objectMapper = objectMapper;
     }
 
     private boolean checkCategory(int id) {
@@ -49,7 +48,7 @@ public class WebController implements ControllerInterface{
             }
         }
         int id = model.addCategoryOfFood(new CategoryOfFood(name));
-        return model.getCategoryOfFoodById(id);
+        return repository.save(model.getCategoryOfFoodById(id));
     }
 
     @GetMapping("getAllCategoryOfFood")
