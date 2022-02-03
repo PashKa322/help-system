@@ -1,9 +1,9 @@
 package com.example.webhelpsystem.Model;
 
-import lombok.Data;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Класс CategoryOfFood с атрибутами name, idCategoryOfFood

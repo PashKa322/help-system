@@ -8,7 +8,6 @@ import com.example.webhelpsystem.exc.WrongNameFood;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.File;
 import java.io.FileOutputStream;

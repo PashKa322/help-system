@@ -5,10 +5,7 @@ import lombok.Data;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 /**
  * Класс Food с атрибутами: name, categoryOfFood, price, idFood
@@ -20,6 +17,7 @@ public class Food {
     private int idFood;
     private String name;
     private int price;
+    @ManyToOne
     @Type(type = "json")
     private CategoryOfFood categoryOfFood;
 

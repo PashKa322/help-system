@@ -8,7 +8,9 @@ import com.example.webhelpsystem.exc.NotFoundObject;
 import com.example.webhelpsystem.exc.WrongNameCategory;
 import com.example.webhelpsystem.exc.WrongNameFood;
 import com.example.webhelpsystem.repository.CategoryOfFoodRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.webhelpsystem.repository.FoodRepository;
+import com.example.webhelpsystem.repository.catRep;
+import com.example.webhelpsystem.repository.foodRep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +27,14 @@ public class WebController implements ControllerInterface{
     private ModelInterface model;
     @Autowired
     private CategoryOfFoodRepository repository;
+    @Autowired
+    private FoodRepository repositoryFood;
+    @Autowired
+    private foodRep foodRep;
+    @Autowired
+    private catRep catRep;
 
-    public WebController(ModelInterface model, ObjectMapper objectMapper){
+    public WebController(ModelInterface model){
         this.model = model;
     }
 
@@ -48,7 +56,7 @@ public class WebController implements ControllerInterface{
             }
         }
         int id = model.addCategoryOfFood(new CategoryOfFood(name));
-        return repository.save(model.getCategoryOfFoodById(id));
+        return catRep.save(model.getCategoryOfFoodById(id));
     }
 
     @GetMapping("getAllCategoryOfFood")
@@ -76,8 +84,9 @@ public class WebController implements ControllerInterface{
                 throw new WrongNameFood();
             }
         }
-        id = model.addFood(new Food(name, model.getCategoryOfFoodById(id), price));
-        return model.getFoodById(id);
+        CategoryOfFood caww = repository.getById(id);
+        int id_ = model.addFood(new Food(name, catRep.getCategoryOfFoodByIdCategoryFood(id), price));
+        return foodRep.save(model.getFoodById(id_));
     }
 
     @GetMapping("getFoodById")
