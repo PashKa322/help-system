@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: f3c13005ebd9
+spec:
+  rules:
+    - http:
+        paths:
+          - pathType: Prefix
+            path: "/web-help-system"
+            backend:
+              service:
+                name: web-help-system
+                port:
+                  number: 80

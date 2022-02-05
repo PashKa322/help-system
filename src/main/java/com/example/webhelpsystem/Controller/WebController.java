@@ -9,8 +9,6 @@ import com.example.webhelpsystem.exc.WrongNameCategory;
 import com.example.webhelpsystem.exc.WrongNameFood;
 import com.example.webhelpsystem.repository.CategoryOfFoodRepository;
 import com.example.webhelpsystem.repository.FoodRepository;
-import com.example.webhelpsystem.repository.catRep;
-import com.example.webhelpsystem.repository.foodRep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,20 +24,16 @@ public class WebController implements ControllerInterface{
     @Autowired
     private ModelInterface model;
     @Autowired
-    private CategoryOfFoodRepository repository;
+    private CategoryOfFoodRepository repositoryCategory;
     @Autowired
     private FoodRepository repositoryFood;
-    @Autowired
-    private foodRep foodRep;
-    @Autowired
-    private catRep catRep;
 
     public WebController(ModelInterface model){
         this.model = model;
     }
 
     private boolean checkCategory(int id) {
-        for (CategoryOfFood category : model.getAllCategoryOfFood()) {
+        for (CategoryOfFood category : repositoryCategory.findAll()) {
             if (category.getIdCategoryFood() == id) {
                 return false;
             }
@@ -56,37 +50,38 @@ public class WebController implements ControllerInterface{
             }
         }
         int id = model.addCategoryOfFood(new CategoryOfFood(name));
-        return catRep.save(model.getCategoryOfFoodById(id));
+        return repositoryCategory.save(model.getCategoryOfFoodById(id));
     }
 
     @GetMapping("getAllCategoryOfFood")
     @Override
     public List<CategoryOfFood> getAllCategoryOfFood() {
-        return model.getAllCategoryOfFood();
+        return repositoryCategory.findAll();
+
     }
 
     @GetMapping("getCategoryById")
     @Override
     public CategoryOfFood getCategoryById(int id) throws NotFoundObject {
-//        if (checkCategory(id)) {
-//            throw new NotFoundObject();
-//        }
-        return model.getCategoryOfFoodById(id);
+        if (checkCategory(id)) {
+            throw new NotFoundObject();
+        }
+        return repositoryCategory.getById(id);
     }
     @PostMapping("addFood")
     @Override
     public Food addFood(String name, int id, int price) throws WrongNameFood, NotFoundObject {
-//        if (checkCategory(id)) {
-//            throw new NotFoundObject();
-//        }
+        if (checkCategory(id)) {
+            throw new NotFoundObject();
+        }
         for (Food food : model.getAllFood()) {
             if (food.getName().equals(name)) {
                 throw new WrongNameFood();
             }
         }
-        CategoryOfFood caww = repository.getById(id);
-        int id_ = model.addFood(new Food(name, catRep.getCategoryOfFoodByIdCategoryFood(id), price));
-        return foodRep.save(model.getFoodById(id_));
+        int id_ = model.addFood(new Food(name, repositoryCategory.getById(id), price));
+        Food neededFood = model.getFoodById(id_);
+        return repositoryFood.save(neededFood);
     }
 
     @GetMapping("getFoodById")
@@ -95,27 +90,28 @@ public class WebController implements ControllerInterface{
         if (id > model.getAllFood().size() || id < 0) {
             throw new NotFoundObject();
         }
-        return model.getFoodById(id);
+        return repositoryFood.getById(id);
     }
 
-    @GetMapping("/getAllFood")
+    @GetMapping("getAllFood")
     @Override
     public List<Food> getAllFood() {
-        return model.getAllFood();
+        return repositoryFood.findAll();
     }
 
     @GetMapping("getFoodByCategoryId")
     @Override
     public List<Food> getFoodByCategoryId(int id) throws NotFoundObject {
-//        if (checkCategory(id)) {
-//            throw new NotFoundObject();
-//        }
+        if (checkCategory(id)) {
+            throw new NotFoundObject();
+        }
+        return repositoryFood.findFoodsByCategoryOfFood(model.getCategoryOfFoodById(id));
 
-        return model.getFoodByCategoryId(id);
     }
 
     @Override
     public void writingToJson() throws IOException {
+
     }
 
     @Override

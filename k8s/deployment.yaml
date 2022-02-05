@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-help-system
+  labels:
+    app: web-help-system
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-help-system
+  template:
+    metadata:
+      labels:
+        app: web-help-system
+    spec:
+      containers:
+        - name: web-help-system
+          image: f3c13005ebd9/web_help_system:1.0.0
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DATASOURCE_HOST
+              value: 192.168.1.66
+            - name: spring.mvc.servlet.path
+              value: /web-help-system

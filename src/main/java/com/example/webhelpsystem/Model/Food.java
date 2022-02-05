@@ -1,9 +1,6 @@
 package com.example.webhelpsystem.Model;
 
-import com.vladmihalcea.hibernate.type.json.JsonStringType;
-import lombok.Data;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
@@ -11,14 +8,15 @@ import javax.persistence.*;
  * Класс Food с атрибутами: name, categoryOfFood, price, idFood
  */
 @Entity
-@TypeDef(name = "json", typeClass = JsonStringType.class)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Food {
     @Id
     private int idFood;
     private String name;
     private int price;
     @ManyToOne
-    @Type(type = "json")
+    @JoinColumn(name="category_of_food_id", nullable=false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private CategoryOfFood categoryOfFood;
 
     /**

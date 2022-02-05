@@ -7,16 +7,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="WebHelpSystem" />
+        <module name="web_help_system" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="WebHelpSystem" target="11" />
+      <module name="web_help_system" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="WebHelpSystem" options="-parameters" />
+      <module name="web_help_system" options="-parameters" />
     </option>
   </component>
 </project>

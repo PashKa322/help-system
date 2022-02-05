@@ -9,10 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>WebHelpSystem</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>WebHelpSystem</name>
-    <description>WebHelpSystem</description>
+    <artifactId>web_help_system</artifactId>
+    <name>web_help_system</name>
+    <description>web_help_system</description>
     <properties>
         <java.version>11</java.version>
     </properties>
