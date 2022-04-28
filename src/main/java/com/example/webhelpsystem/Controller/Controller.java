@@ -31,6 +31,12 @@ public class Controller implements ControllerInterface{
      * @param id - номер
      * @return возвращает false, если категория существует
      */
+
+    /**
+     * Функция проверки существования категории по номеру
+     * @param id - номер
+     * @return возвращает false, если категория существует
+     */
     private boolean checkCategory(int id) {
         for (CategoryOfFood category : model.getAllCategoryOfFood()) {
             if (category.getIdCategoryFood() == id) {
