@@ -155,6 +155,15 @@ public class Controller implements ControllerInterface{
         return null;
     }
 
+    public List<Food> getFoodByCategoryId(int id) throws NotFoundObject {
+        if (checkCategory(id)) {
+            throw new NotFoundObject();
+        }
+        view.printFoodByCategoryId(id);
+        return null;
+    }
+
+
     /**
      * Функция сохранения модели в json файл
      * @throws IOException
