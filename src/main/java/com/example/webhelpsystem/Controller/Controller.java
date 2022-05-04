@@ -147,6 +147,11 @@ public class Controller implements ControllerInterface{
      * @param id - номер категории
      * @throws NotFoundObject - ошибка поиска блюда
      */
+    /**
+     * Функция, выводящая список блюд по номеру категории
+     * @param id - номер категории
+     * @throws NotFoundObject - ошибка поиска блюда
+     */
     public List<Food> getFoodByCategoryId(int id) throws NotFoundObject {
         if (checkCategory(id)) {
             throw new NotFoundObject();
