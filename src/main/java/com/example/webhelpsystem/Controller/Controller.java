@@ -48,6 +48,14 @@ public class Controller implements ControllerInterface{
         }
         return true;
     }
+    private boolean checkCategory(int id) {
+        for (CategoryOfFood category : model.getAllCategoryOfFood()) {
+            if (category.getIdCategoryFood() == id) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * Конструктор - создание нового обхекта с определенными значениями
