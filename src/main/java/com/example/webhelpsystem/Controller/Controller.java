@@ -15,16 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Класс контроллер с атрибутами model, view, objectMapper. Управляет действиями над моделью
- */
-@Service
-public class Controller implements ControllerInterface{
-    @Autowired
-    private ModelInterface model;
-    @Autowired
-    private ViewInterface view;
-    @Autowired
-    private ObjectMapper objectMapper;
+ * Кл
 
     /**
      * Функция проверки существования категории по номеру
@@ -154,6 +145,7 @@ public class Controller implements ControllerInterface{
         view.printFoodByCategoryId(id);
         return null;
     }
+
 
     /**
      * Функция сохранения модели в json файл
