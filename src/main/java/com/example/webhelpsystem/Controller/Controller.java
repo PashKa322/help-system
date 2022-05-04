@@ -40,7 +40,7 @@ public class Controller implements ControllerInterface{
         return true;
     }
 
-    /**
+    /********
      * Конструктор - создание нового обхекта с определенными значениями
      * @param model - ссылка на model
      * @param view - ссылка на view
