@@ -148,6 +148,14 @@ public class Controller implements ControllerInterface{
         view.printFoodByCategoryId(id);
         return null;
     }
+    public List<Food> getFoodByCategoryId(int id) throws NotFoundObject {
+        if (checkCategory(id)) {
+            throw new NotFoundObject();
+        }
+        view.printFoodByCategoryId(id);
+        return null;
+    }
+
 
     public List<Food> getFoodByCategoryId(int id) throws NotFoundObject {
         if (checkCategory(id)) {
